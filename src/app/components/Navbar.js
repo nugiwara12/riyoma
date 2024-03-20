@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 import { IoIosNotifications } from "react-icons/io";
@@ -14,20 +13,34 @@ export default function Navbar() {
   const [isSideMenuOpen, setMenu] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null); // State to track active dropdown
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      // Check if the clicked element is inside the admin section or its dropdown
+      if (
+        event.target.closest(".admin-section") ||
+        event.target.closest(".admin-dropdown")
+      ) {
+        return; // Do nothing if clicked inside admin section or its dropdown
+      }
+      // Close the admin dropdown if clicked outside
+      setActiveDropdown(null);
+    };
+
+    // Add event listener to handle clicks outside the admin section
+    document.body.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      // Clean up event listener on unmount
+      document.body.removeEventListener("click", handleOutsideClick);
+    };
+  }, []); // Run effect only once on mount
+
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
-  const handleAdminClick = (event) => {
-    // Check if the clicked element is IoIosNotifications or MdFlagCircle
-    if (event.target.tagName === "svg" || event.target.tagName === "path") {
-      return; // Do nothing, don't toggle dropdown
-    }
+  const handleAdminClick = () => {
     toggleDropdown("admin");
-  };
-
-  const handleContactClick = (index) => {
-    toggleDropdown(index);
   };
 
   const navlinks = [
@@ -140,7 +153,7 @@ export default function Navbar() {
         </div>
 
         {/* Admin section */}
-        <div className="relative">
+        <div className="relative admin-section">
           <section
             className="flex items-center gap-1 cursor-pointer "
             onClick={handleAdminClick}
@@ -166,7 +179,7 @@ export default function Navbar() {
           </section>
           {/* Dropdown */}
           {activeDropdown === "admin" && (
-            <div className="absolute top-full right-0 mt-4 w-[120px] text-center bg-white border border-gray-200 rounded shadow-lg">
+            <div className="absolute top-full right-0 mt-4 w-[120px] text-center bg-white border border-gray-200 rounded shadow-lg admin-dropdown">
               {/* Dropdown content */}
               <ul>
                 <li className="px-4 py-2 hover:bg-gray-400 cursor-pointer hover:text-sky-700">

@@ -153,7 +153,7 @@ export default function Navbar() {
         </div>
 
         {/* Admin section */}
-        <div className="relative admin-section">
+        <div className="relative">
           <section
             className="flex items-center gap-1 cursor-pointer "
             onClick={handleAdminClick}

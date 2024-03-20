@@ -34,7 +34,7 @@ const [showModal, setShowModal,] = useState(false);
                     <div className="col-start-1 col-span-1">
                         <div className="flex justify-start">
                             <div className="dds__pagination__summary flex items-center mb-2 sm:mb-0">
-                                <label className="dds__pagination__per-page-label mr-2" htmlFor="590825466-per-page">Items per page</label>
+                                <label className="dds__pagination__per-page-label mr-2" htmlFor="590825466-per-page">Table Page</label>
                                 <div className="dds__select dds__select--sm dds__pagination__per-page-select" data-dds="select">
                                     <div className="dds__select__wrapper">
                                         <select className="dds__select__field border border-black h-8" id="590825466-per-page">
@@ -50,9 +50,9 @@ const [showModal, setShowModal,] = useState(false);
                             </div>
                         </div>
                     </div>
-                    <div className="col-start-2 col-span-1">
-                        <div className="flex justify-end mb-4 mr-4">
-                            <input type="text" placeholder="Search..." className="border border-black rounded-md px-4 py-2 flex" />
+                    <div className="grid col-start-2 col-span-1">
+                        <div className="flex justify-end mb-4 mr-2">
+                            <input type="text" placeholder="Search..." className="border border-black rounded-md px-2 py-2 flex" />
                         </div>
                     </div>
                 </nav>
